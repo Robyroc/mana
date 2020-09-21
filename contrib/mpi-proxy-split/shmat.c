@@ -1,6 +1,7 @@
 #include <sys/shm.h>
 #include <errno.h>
 #include <assert.h>
+#include <stdlib.h>
 
 #include "mmap_internal.h"
 #include "shm_internal.h"

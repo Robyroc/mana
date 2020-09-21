@@ -172,7 +172,7 @@ namespace dmtcp_mpi
     private:
       // Pvt. constructor
       MpiVirtualization(const char *name, T nullId)
-        : _vIdTable(name, (T)0, (T)999999),
+        : _vIdTable(name, (T)0),
           _nullId(nullId),
           _mutex()
       {

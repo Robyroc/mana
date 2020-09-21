@@ -226,8 +226,8 @@ namespace dmtcp_mpi
             switch (rec->getType()) {
               case GENERATE_ENUM(Comm_split):
               {
-                MPI_Comm c = rec->args(0);
-                MPI_Comm newcomm = rec->args(3);
+                MPI_Comm c = MPI_Comm_f2c(rec->args(0));
+                MPI_Comm newcomm = MPI_Comm_f2c(rec->args(3));
                 if (staleComms.count(c) > 0) {
                   staleComms.erase(c);
                   staleComms.insert(newcomm);
@@ -238,8 +238,8 @@ namespace dmtcp_mpi
               }
               case GENERATE_ENUM(Comm_split_type):
               {
-                MPI_Comm c = rec->args(0);
-                MPI_Comm newcomm = rec->args(4);
+                MPI_Comm c = MPI_Comm_f2c(rec->args(0));
+                MPI_Comm newcomm = MPI_Comm_f2c(rec->args(4));
                 if (staleComms.count(c) > 0) {
                   staleComms.erase(c);
                   staleComms.insert(newcomm);
@@ -250,8 +250,8 @@ namespace dmtcp_mpi
               }
               case GENERATE_ENUM(Comm_create):
               {
-                MPI_Comm c = rec->args(0);
-                MPI_Comm newcomm = rec->args(2);
+                MPI_Comm c = MPI_Comm_f2c(rec->args(0));
+                MPI_Comm newcomm = MPI_Comm_f2c(rec->args(2));
                 if (staleComms.count(c) > 0) {
                   staleComms.erase(c);
                   staleComms.insert(newcomm);
@@ -262,8 +262,8 @@ namespace dmtcp_mpi
               }
               case GENERATE_ENUM(Comm_dup):
               {
-                MPI_Comm c = rec->args(0);
-                MPI_Comm newcomm = rec->args(1);
+                MPI_Comm c = MPI_Comm_f2c(rec->args(0));
+                MPI_Comm newcomm = MPI_Comm_f2c(rec->args(1));
                 if (staleComms.count(c) > 0) {
                   staleComms.erase(c);
                   staleComms.insert(newcomm);
@@ -276,7 +276,7 @@ namespace dmtcp_mpi
               case GENERATE_ENUM(Attr_put):
               case GENERATE_ENUM(Attr_delete):
               {
-                MPI_Comm c = rec->args(0);
+                MPI_Comm c = MPI_Comm_f2c(rec->args(0));
                 if (staleComms.count(c) > 0) {
                   staleComms.erase(c);
                   return true;
@@ -301,20 +301,20 @@ namespace dmtcp_mpi
             switch (rec->getType()) {
               case GENERATE_ENUM(Group_incl):
               {
-                MPI_Group g = rec->args(0);
+                MPI_Group g = MPI_Group_f2c(rec->args(0));
                 return group == g;
               }
               case GENERATE_ENUM(Comm_group):
               {
-                MPI_Comm comm = rec->args(0);
-                MPI_Group g = rec->args(1);
+                MPI_Comm comm = MPI_Comm_f2c(rec->args(0));
+                MPI_Group g = MPI_Group_f2c(rec->args(1));
                 return group == g;
               }
               case GENERATE_ENUM(Comm_create):
               {
-                MPI_Comm comm = rec->args(0);
-                MPI_Group g = rec->args(1);
-                MPI_Comm oldcomm = rec->args(2);
+                MPI_Comm comm = MPI_Comm_f2c(rec->args(0));
+                MPI_Group g = MPI_Group_f2c(rec->args(1));
+                MPI_Comm oldcomm = MPI_Comm_f2c(rec->args(2));
                 if (group == g) {
                   staleComms.insert(oldcomm); // save this
                   return true;
@@ -338,8 +338,8 @@ namespace dmtcp_mpi
             switch (rec->getType()) {
               case GENERATE_ENUM(Comm_split):
               {
-                MPI_Comm c = rec->args(0);
-                MPI_Comm newcomm = rec->args(3);
+                MPI_Comm c = MPI_Comm_f2c(rec->args(0));
+                MPI_Comm newcomm = MPI_Comm_f2c(rec->args(3));
                 if (c == comm) {
                   staleComms.insert(newcomm);
                   return true;
@@ -348,8 +348,8 @@ namespace dmtcp_mpi
               }
               case GENERATE_ENUM(Comm_split_type):
               {
-                MPI_Comm c = rec->args(0);
-                MPI_Comm newcomm = rec->args(4);
+                MPI_Comm c = MPI_Comm_f2c(rec->args(0));
+                MPI_Comm newcomm = MPI_Comm_f2c(rec->args(4));
                 if (c == comm) {
                   staleComms.insert(newcomm);
                   return true;
@@ -358,8 +358,8 @@ namespace dmtcp_mpi
               }
               case GENERATE_ENUM(Comm_create):
               {
-                MPI_Comm c = rec->args(0);
-                MPI_Comm newcomm = rec->args(2);
+                MPI_Comm c = MPI_Comm_f2c(rec->args(0));
+                MPI_Comm newcomm = MPI_Comm_f2c(rec->args(2));
                 if (c == comm) {
                   staleComms.insert(newcomm);
                   return true;
@@ -368,8 +368,8 @@ namespace dmtcp_mpi
               }
               case GENERATE_ENUM(Comm_dup):
               {
-                MPI_Comm c = rec->args(0);
-                MPI_Comm newcomm = rec->args(1);
+                MPI_Comm c = MPI_Comm_f2c(rec->args(0));
+                MPI_Comm newcomm = MPI_Comm_f2c(rec->args(1));
                 if (c == comm) {
                   staleComms.insert(newcomm);
                   return true;
@@ -380,7 +380,7 @@ namespace dmtcp_mpi
               case GENERATE_ENUM(Attr_put):
               case GENERATE_ENUM(Attr_delete):
               {
-                MPI_Comm c = rec->args(0);
+                MPI_Comm c = MPI_Comm_f2c(rec->args(0));
                 return staleComms.count(c) > 0;
               }
               default:
